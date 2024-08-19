@@ -38,49 +38,49 @@ def decode_course_label(encoded_label):
 st.title("Tech Studio Course Prediction App")
 st.image("tsa_image.jpeg")
 
-st.header("Please answer the questions")
+st.sidebar.header("Please answer the questions")
 
 # Collect user input features into a dataframe
 def user_input_features():
-    how_good_working_with_numbers = st.slider(
+    how_good_working_with_numbers = st.sidebar.slider(
         'Do you have the tenacity to solve complex mathematical problems?', 0, 10, 0
     )
-    studied_cs_related = st.selectbox(
+    studied_cs_related = st.sidebar.selectbox(
         'Did you study computer science, computer/system engineering, or related?', ['Yes', 'No']
     )
-    passion_for_design = st.slider(
+    passion_for_design = st.sidebar.slider(
         'How passionate are you about design?', 0, 10, 0
     )
-    interest_in_cybersecurity = st.selectbox(
+    interest_in_cybersecurity = st.sidebar.selectbox(
         "Imagine you work for an IT firm and an unusual activity got detected in their network. Will you be motivated to learn the skills needed to investigate and secure the system against potential attacks/threats?", ['Yes', 'Not really', 'No']
     )
-    math_skill = st.slider(
+    math_skill = st.sidebar.slider(
         'Think about a time when you had to use mathematical skills to solve a problem or complete a project. How successful were you in applying those skills?', 0, 10, 0
     )
-    curious_about_protection = st.selectbox(
+    curious_about_protection = st.sidebar.selectbox(
         'Picture yourself in a company or organization and they need to manage sensitive information. Are you interested are you in exploring ways to ensure that this data remains secure and protected?', ['Yes', 'No']
     )
-    project_work = st.selectbox(
+    project_work = st.sidebar.selectbox(
         'Do you prefer working on projects alone or collaborating with others',
         ['prefer working on project alone, then ask questions when I am stuck', 'collaborate with others and do it together']
     )
-    studied_numbers_related = st.selectbox(
+    studied_numbers_related = st.sidebar.selectbox(
         'Did you study statistics, accounting, or any course related to numbers?', ['Yes', 'No']
     )
     
-    communication_skill = st.slider(
+    communication_skill = st.sidebar.slider(
         'Rate your communication skill', 0, 10, 0
     )
     
-    basic_sketching_skills = st.selectbox(
+    basic_sketching_skills = st.sidebar.selectbox(
         'Do you have basic sketching skills?', ['Yes', 'No']
     )
     
-    interest_area = st.selectbox(
+    interest_area = st.sidebar.selectbox(
         'Which area interests you the most?', 
         ['Password security', 'Working with numbers', 'Illustrations, animations, and video games', 'Useful platforms, apps, and websites']
     )
-    user_empathy = st.slider(
+    user_empathy = st.sidebar.slider(
         'Consider you are developing a new app and need to gather feedback from a variety of users to ensure it meets their needs, how well do you think you can put yourself in their shoes and create solutions that truly address their needs?', 0, 10, 0
     )
 
@@ -127,10 +127,11 @@ if st.button('Predict', key='predict_button'):
     fig = px.pie(
         values=feature_importance,
         names=feature_importance.index,
-        title='Pie chart for prediction'
+        title='Feature Importance'
     )
 
     st.plotly_chart(fig)
+    
 
 else:
     st.write("Press the Predict button to see the prediction.")
