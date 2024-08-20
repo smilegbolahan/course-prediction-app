@@ -123,26 +123,30 @@ if st.button('Predict', key='predict_button'):
         names=feature_importance.index,
         values=feature_importance,
         title='Prediction chart',
-        hole=0.3  # Adjust this value to make it a donut chart, or remove for a full pie
+        hole=0.3  # Adjust this value to make it a donut chart, or remove it for a full pie
     )
 
-    # Customize the layout for better responsiveness
+    # Customize the layout
     fig.update_layout(
         title={'y': 0.9, 'x': 0.5, 'xanchor': 'center', 'yanchor': 'top'},
         legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=-0.1,
-            xanchor="center",
-            x=0.5,
+            orientation="h",   # Horizontal orientation
+            yanchor="top",     # Place legend below the chart
+            y=-0.2,            # Adjust this value to control the distance of the legend from the chart
+            xanchor="left",    # Anchor the legend to the left
+            x=0.1,             # Shift the legend horizontally (left or right)
             traceorder="normal",
-            font=dict(size=10),  # Adjust the font size for smaller screens
+            font=dict(size=12),  # Adjust the font size if needed
+            bordercolor="Black", # Optional: Add border to the legend
+            borderwidth=1       # Optional: Width of the border
         ),
-        height=450,  # Reduce the height for smaller screens
-        margin=dict(t=40, b=40, l=10, r=10),  # Reduce margins
+        height=800,  # Increase the height for a bigger chart
+        width=900,   # Increase the width slightly for a larger chart
+        margin=dict(t=50, b=50, l=20, r=20)  # Reduce margins to utilize space better
     )
 
     # Display the chart
     st.plotly_chart(fig, use_container_width=True)
+
 else:
     st.write("Press the Predict button to see the prediction.")
