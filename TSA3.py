@@ -4,10 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 import streamlit as st
-import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.express as px
-import plotly.graph_objects as go
 
 # Load the data
 data = pd.read_excel("testfile.xlsx")
@@ -34,13 +31,7 @@ model.fit(X_train, y_train)
 def decode_course_label(encoded_label):
     return label_encoders['Course'].inverse_transform([encoded_label])[0]
 
-# Streamlit app
-st.title("Tech Studio Course Prediction App")
-st.image("tsa_image.jpeg")
-
-st.sidebar.header("Please answer the questions")
-
-# Collect user input features into a dataframe
+# Function to collect user input features
 def user_input_features():
     how_good_working_with_numbers = st.sidebar.slider(
         'Do you have the tenacity to solve complex mathematical problems?', 0, 10, 0
@@ -51,14 +42,18 @@ def user_input_features():
     passion_for_design = st.sidebar.slider(
         'How passionate are you about design?', 0, 10, 0
     )
-    interest_in_cybersecurity = st.sidebar.selectbox(
-        "Imagine you work for an IT firm and an unusual activity got detected in their network. Will you be motivated to learn the skills needed to investigate and secure the system against potential attacks/threats?", ['Yes', 'Not really', 'No']
+    communication_skill = st.sidebar.slider(
+        'Rate your communication skill', 0, 10, 0
     )
     math_skill = st.sidebar.slider(
         'Think about a time when you had to use mathematical skills to solve a problem or complete a project. How successful were you in applying those skills?', 0, 10, 0
     )
+    interest_in_cybersecurity = st.sidebar.selectbox(
+        "Imagine you work for an IT firm and an unusual activity got detected in their network. Will you be motivated to learn the skills needed to investigate and secure the system against potential attacks/threats?", ['Yes', 'Not really', 'No']
+    )
+    
     curious_about_protection = st.sidebar.selectbox(
-        'Picture yourself in a company or organization and they need to manage sensitive information. Are you interested are you in exploring ways to ensure that this data remains secure and protected?', ['Yes', 'No']
+        'Picture yourself in a company or organization and they need to manage sensitive information. Are you interested in exploring ways to ensure that this data remains secure and protected?', ['Yes', 'No']
     )
     project_work = st.sidebar.selectbox(
         'Do you prefer working on projects alone or collaborating with others',
@@ -66,10 +61,6 @@ def user_input_features():
     )
     studied_numbers_related = st.sidebar.selectbox(
         'Did you study statistics, accounting, or any course related to numbers?', ['Yes', 'No']
-    )
-    
-    communication_skill = st.sidebar.slider(
-        'Rate your communication skill', 0, 10, 0
     )
     
     basic_sketching_skills = st.sidebar.selectbox(
@@ -103,10 +94,14 @@ def user_input_features():
         features[column] = label_encoders[column].transform(features[column])
     return features
 
+# Streamlit app
+st.title("Tech Studio Course Prediction App")
+st.image("tsa_image.jpeg")
+
+st.sidebar.header("Please answer the questions")
+
 # Main panel
-
 input_df = user_input_features()
-
 
 # Add a predict button
 if st.button('Predict', key='predict_button'):
@@ -122,16 +117,31 @@ if st.button('Predict', key='predict_button'):
 
     # Plotting a pie chart of feature importance
     feature_importance = pd.Series(model.feature_importances_, index=X.columns)
-    
-    # Create a pie chart
+
+        # Create a pie chart
     fig = px.pie(
-        values=feature_importance,
         names=feature_importance.index,
-        title='Feature Importance'
+        values=feature_importance,
+        title='Prediction chart',
+        hole=0.3  # Adjust this value to make it a donut chart, or remove for a full pie
     )
 
-    st.plotly_chart(fig)
-    
+    # Customize the layout
+    fig.update_layout(
+        title={'y': 0.9, 'x': 0.5, 'xanchor': 'center', 'yanchor': 'top'},
+        legend=dict(
+            orientation="h",   # Horizontal orientation
+            yanchor="top",     # Place legend below the chart
+            y=-0.2,            # Adjust this value to control the distance of the legend from the chart
+            xanchor="center",  # Center the legend horizontally
+            x=0.5
+        ),
+        height=700,  # Increase the height for a bigger chart
+        margin=dict(t=100, b=100)  # Add top and bottom margins to ensure the chart fits well
+    )
+
+    # Display the chart
+    st.plotly_chart(fig, use_container_width=True)
 
 else:
     st.write("Press the Predict button to see the prediction.")
