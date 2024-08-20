@@ -126,7 +126,7 @@ if st.button('Predict', key='predict_button'):
         hole=0.3  # Adjust this value to make it a donut chart, or remove for a full pie
     )
 
-    # Customize the layout
+        # Customize the layout
     fig.update_layout(
         title={'y': 0.9, 'x': 0.5, 'xanchor': 'center', 'yanchor': 'top'},
         legend=dict(
@@ -134,10 +134,16 @@ if st.button('Predict', key='predict_button'):
             yanchor="top",     # Place legend below the chart
             y=-0.2,            # Adjust this value to control the distance of the legend from the chart
             xanchor="center",  # Center the legend horizontally
-            x=0.5
+            x=0.5,
+            traceorder="normal",
+            font=dict(size=12),  # Adjust the font size if needed
+            bordercolor="Black", # Optional: Add border to the legend
+            borderwidth=1,       # Optional: Width of the border
+            itemclick='toggleothers',  # Clickable legend items
+            xshift=-50,  # Shifts the legend horizontally (left or right)
         ),
         height=700,  # Increase the height for a bigger chart
-        margin=dict(t=100, b=100)  # Add top and bottom margins to ensure the chart fits well
+        margin=dict(t=100, b=100, l=50, r=50)  # Add top, bottom, left, and right margins
     )
 
     # Display the chart
