@@ -118,7 +118,7 @@ if st.button('Predict', key='predict_button'):
     # Plotting a pie chart of feature importance
     feature_importance = pd.Series(model.feature_importances_, index=X.columns)
 
-        # Create a pie chart
+    # Create a pie chart
     fig = px.pie(
         names=feature_importance.index,
         values=feature_importance,
@@ -126,26 +126,23 @@ if st.button('Predict', key='predict_button'):
         hole=0.3  # Adjust this value to make it a donut chart, or remove for a full pie
     )
 
-        # Customize the layout
+    # Customize the layout for better responsiveness
     fig.update_layout(
-    title={'y': 0.9, 'x': 0.5, 'xanchor': 'center', 'yanchor': 'top'},
-    legend=dict(
-        orientation="h",   # Horizontal orientation
-        yanchor="top",     # Place legend below the chart
-        y=-0.2,            # Adjust this value to control the distance of the legend from the chart
-        xanchor="left",    # Anchor the legend to the left
-        x=0.1,             # Shift the legend horizontally (left or right)
-        traceorder="normal",
-        font=dict(size=12),  # Adjust the font size if needed
-        bordercolor="Black", # Optional: Add border to the legend
-        borderwidth=1       # Optional: Width of the border
-    ),
-    height=700,  # Increase the height for a bigger chart
-    margin=dict(t=100, b=100, l=50, r=50)  # Add top, bottom, left, and right margins
+        title={'y': 0.9, 'x': 0.5, 'xanchor': 'center', 'yanchor': 'top'},
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=-0.1,
+            xanchor="center",
+            x=0.5,
+            traceorder="normal",
+            font=dict(size=10),  # Adjust the font size for smaller screens
+        ),
+        height=450,  # Reduce the height for smaller screens
+        margin=dict(t=40, b=40, l=10, r=10),  # Reduce margins
     )
 
     # Display the chart
     st.plotly_chart(fig, use_container_width=True)
-
 else:
     st.write("Press the Predict button to see the prediction.")
