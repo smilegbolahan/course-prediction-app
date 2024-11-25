@@ -13,7 +13,7 @@ This Streamlit app provides course recommendations for potential students in a t
 
 * User-friendly navigation and design.
 
-## Prerequisites
+#### Prerequisites
 
   To run this app, ensure you have the following installed:
 
