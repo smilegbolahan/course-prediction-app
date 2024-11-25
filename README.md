@@ -12,3 +12,13 @@ This Streamlit app provides course recommendations for potential students in a t
 * Visual representation of results using bar charts.
 
 * User-friendly navigation and design.
+
+## Prerequisites
+
+  To run this app, ensure you have the following installed:
+
+Python 3.9
+Streamlit
+Pandas
+Matplotlib
+Seaborn
